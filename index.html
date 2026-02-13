@@ -14,12 +14,16 @@
 </head>
 <body>
     <div class="grid-background"></div>
-    <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
             <div class="nav-content">
                 <div class="logo">
-                    <img src="chimiicon.png" alt="Chimi UI" class="logo-icon">
+                    <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 424 384" width="424" height="384">
+                        <path d="M0 0h424v384H0z"/>
+                        <path d="M188 135v2l2.249.821c8.901 3.814 15.967 11.993 22.739 18.741a612 612 0 0 0 5.008 4.897 2022 2022 0 0 1 3.168 3.146l1.521 1.462c1.368 1.387 1.368 1.387 3.315 3.933-.095 2.249-.095 2.249-1 4-1.637 1.414-1.637 1.414-3.687 2.625l-2.012 1.227c-7.658 3.822-15.758 4.446-24.086 2.496-4.607-1.66-7.768-3.692-11.278-7.098-2.775-2.58-4.618-3.825-8.437-4.125-5.677.496-8.715 3.931-12.5 7.875l-2.395 2.293c-7.359 7.098-12.882 14.513-13.124 25.114l.019 2.28.017 2.39c.482 15.915 10.303 24.963 21.077 35.439l4.867 4.789c2.534 2.49 5.07 4.976 7.618 7.452 2.475 2.408 4.933 4.832 7.39 7.259l2.335 2.247 2.116 2.105 1.88 1.838c1.2 1.794 1.2 1.794 1.08 3.958L195 276l-3 1v2c-14.796 7.062-27.669 7.277-43.082 2.332-6.873-2.85-12.123-8.734-17.376-13.836a364 364 0 0 0-4.132-3.93c-5.267-5.051-9.473-10.428-13.41-16.566l-2.125-3.25c-9.795-17.944-11.326-38.505-6.086-57.988 1.25-3.88 2.674-6.892 5.074-10.157 1.362-1.78 1.362-1.78 2.387-4.917C118.732 157.43 135.907 140.574 149 135c12.541-5.072 26.33-4.031 39 0" fill="#fafafa"/>
+                        <path d="m239.875 131.75 2.133.023c19.26.397 32.37 11.828 45.242 25.149C297 167.464 297 167.464 297 173h2c8.79 18.031 10.617 38.677 5 58-6.784 18.467-22.067 38.607-39.656 47.93-14.904 6.806-26.69 7.888-42.344 2.07l-2-1v-2l-2-.562c-9.014-4.32-16.017-13.335-23-20.375l-3.215-3.229Q187.89 249.921 184 246c1.935-5.216 3.65-6.73 8.68-9.047 4.202-1.206 8.09-1.467 12.445-1.516l2.277-.044c7.782.14 13.403 3.244 19.16 8.357 2.79 2.19 4.415 3.243 7.875 4.25 5.826-1.635 9.368-5.792 13.563-10l1.984-1.805c7.14-6.603 12.415-15.147 13.387-24.93.43-13.821-3.714-20.742-12.994-30.712-5.8-6.145-11.785-12.11-17.769-18.075a3487 3487 0 0 1-6.594-6.601l-4.205-4.201-1.986-1.992-1.833-1.823-1.609-1.607c-1.379-1.365-1.379-1.365-3.381-2.254.18-1.805.18-1.805 1-4 2.258-1.633 2.258-1.633 5.125-3.125l2.82-1.508c5.967-2.67 11.423-3.709 17.93-3.617" fill="#fbfbfb"/>
+                        <path d="M171 170c-1.329 2.955-2.773 5.013-5.082 7.277l-1.826 1.807-1.905 1.853-1.869 1.842a1553 1553 0 0 1-3.625 3.56A820 820 0 0 0 150 193c1.856-6.6 14.18-23 21-23" fill="#313131"/>
+                    </svg>
                     <span class="logo-text">Chimi UI Library</span>
                 </div>
                 <ul class="nav-links">
@@ -36,7 +40,6 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="container">
             <div class="hero-content">
@@ -60,7 +63,6 @@
         </div>
     </section>
 
-    <!-- Features Section -->
     <section id="features" class="features">
         <div class="container">
             <h2 class="section-title">Why Choose Chimi UI Library?</h2>
@@ -113,7 +115,6 @@
         </div>
     </section>
 
-    <!-- Installation Section -->
     <section id="installation" class="installation">
         <div class="container">
             <h2 class="section-title">Quick Installation</h2>
@@ -169,7 +170,6 @@ end)</code></pre>
         </div>
     </section>
 
-    <!-- Documentation Section -->
     <section id="documentation" class="documentation">
         <div class="container-docs">
             <div class="docs-sidebar">
@@ -207,7 +207,6 @@ end)</code></pre>
             </div>
 
             <div class="docs-content">
-                <!-- Window -->
                 <div id="doc-window" class="doc-section">
                     <h2>Creating Window</h2>
                     <p class="doc-description">Create the main window for your UI library. This is the foundation of your interface.</p>
@@ -269,7 +268,6 @@ local Window = Library.CreateLib("Custom UI", customTheme)</code></pre>
                     </div>
                 </div>
 
-                <!-- Tabs & Sections -->
                 <div id="doc-tabs" class="doc-section">
                     <h2>Tabs & Sections</h2>
                     <p class="doc-description">Organize your UI into tabs and sections for better structure.</p>
@@ -311,7 +309,6 @@ local Section = Tab:NewSection("Hidden", true)</code></pre>
                     </div>
                 </div>
 
-                <!-- Button -->
                 <div id="doc-button" class="doc-section">
                     <h2>Button</h2>
                     <p class="doc-description">Create clickable buttons that execute functions.</p>
@@ -335,7 +332,6 @@ button:UpdateButton("New Text")</code></pre>
                     </div>
                 </div>
 
-                <!-- Toggle -->
                 <div id="doc-toggle" class="doc-section">
                     <h2>Toggle</h2>
                     <p class="doc-description">Create toggle switches with on/off states.</p>
@@ -363,7 +359,6 @@ toggle:UpdateToggle("New Text", true) -- Set to enabled</code></pre>
                     </div>
                 </div>
 
-                <!-- Slider -->
                 <div id="doc-slider" class="doc-section">
                     <h2>Slider</h2>
                     <p class="doc-description">Create sliders for numeric input with min/max values.</p>
@@ -385,7 +380,6 @@ end)</code></pre>
                     </div>
                 </div>
 
-                <!-- TextBox -->
                 <div id="doc-textbox" class="doc-section">
                     <h2>TextBox</h2>
                     <p class="doc-description">Create text input fields for user input.</p>
@@ -406,7 +400,6 @@ end)</code></pre>
                     </div>
                 </div>
 
-                <!-- Dropdown -->
                 <div id="doc-dropdown" class="doc-section">
                     <h2>Dropdown</h2>
                     <p class="doc-description">Create dropdown menus with multiple options.</p>
@@ -432,7 +425,6 @@ dropdown:Refresh(newOptions)</code></pre>
                     </div>
                 </div>
 
-                <!-- Label -->
                 <div id="doc-label" class="doc-section">
                     <h2>Label</h2>
                     <p class="doc-description">Create text labels for displaying information.</p>
@@ -454,7 +446,6 @@ label:UpdateLabel("Status: Updated")</code></pre>
                     </div>
                 </div>
 
-                <!-- Themes -->
                 <div id="doc-themes" class="doc-section">
                     <h2>Available Themes</h2>
                     <p class="doc-description">Choose from built-in themes for your UI.</p>
@@ -491,7 +482,6 @@ label:UpdateLabel("Status: Updated")</code></pre>
                     </div>
                 </div>
 
-                <!-- Custom Themes -->
                 <div id="doc-custom" class="doc-section">
                     <h2>Custom Themes</h2>
                     <p class="doc-description">Create your own custom color schemes.</p>
@@ -522,12 +512,16 @@ local Window = Library.CreateLib("Custom UI", customTheme)</code></pre>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <img src="chimiicon.png" alt="Chimi UI" class="footer-icon">
+                    <svg class="footer-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 424 384" width="424" height="384">
+                        <path d="M0 0h424v384H0z"/>
+                        <path d="M188 135v2l2.249.821c8.901 3.814 15.967 11.993 22.739 18.741a612 612 0 0 0 5.008 4.897 2022 2022 0 0 1 3.168 3.146l1.521 1.462c1.368 1.387 1.368 1.387 3.315 3.933-.095 2.249-.095 2.249-1 4-1.637 1.414-1.637 1.414-3.687 2.625l-2.012 1.227c-7.658 3.822-15.758 4.446-24.086 2.496-4.607-1.66-7.768-3.692-11.278-7.098-2.775-2.58-4.618-3.825-8.437-4.125-5.677.496-8.715 3.931-12.5 7.875l-2.395 2.293c-7.359 7.098-12.882 14.513-13.124 25.114l.019 2.28.017 2.39c.482 15.915 10.303 24.963 21.077 35.439l4.867 4.789c2.534 2.49 5.07 4.976 7.618 7.452 2.475 2.408 4.933 4.832 7.39 7.259l2.335 2.247 2.116 2.105 1.88 1.838c1.2 1.794 1.2 1.794 1.08 3.958L195 276l-3 1v2c-14.796 7.062-27.669 7.277-43.082 2.332-6.873-2.85-12.123-8.734-17.376-13.836a364 364 0 0 0-4.132-3.93c-5.267-5.051-9.473-10.428-13.41-16.566l-2.125-3.25c-9.795-17.944-11.326-38.505-6.086-57.988 1.25-3.88 2.674-6.892 5.074-10.157 1.362-1.78 1.362-1.78 2.387-4.917C118.732 157.43 135.907 140.574 149 135c12.541-5.072 26.33-4.031 39 0" fill="#fafafa"/>
+                        <path d="m239.875 131.75 2.133.023c19.26.397 32.37 11.828 45.242 25.149C297 167.464 297 167.464 297 173h2c8.79 18.031 10.617 38.677 5 58-6.784 18.467-22.067 38.607-39.656 47.93-14.904 6.806-26.69 7.888-42.344 2.07l-2-1v-2l-2-.562c-9.014-4.32-16.017-13.335-23-20.375l-3.215-3.229Q187.89 249.921 184 246c1.935-5.216 3.65-6.73 8.68-9.047 4.202-1.206 8.09-1.467 12.445-1.516l2.277-.044c7.782.14 13.403 3.244 19.16 8.357 2.79 2.19 4.415 3.243 7.875 4.25 5.826-1.635 9.368-5.792 13.563-10l1.984-1.805c7.14-6.603 12.415-15.147 13.387-24.93.43-13.821-3.714-20.742-12.994-30.712-5.8-6.145-11.785-12.11-17.769-18.075a3487 3487 0 0 1-6.594-6.601l-4.205-4.201-1.986-1.992-1.833-1.823-1.609-1.607c-1.379-1.365-1.379-1.365-3.381-2.254.18-1.805.18-1.805 1-4 2.258-1.633 2.258-1.633 5.125-3.125l2.82-1.508c5.967-2.67 11.423-3.709 17.93-3.617" fill="#fbfbfb"/>
+                        <path d="M171 170c-1.329 2.955-2.773 5.013-5.082 7.277l-1.826 1.807-1.905 1.853-1.869 1.842a1553 1553 0 0 1-3.625 3.56A820 820 0 0 0 150 193c1.856-6.6 14.18-23 21-23" fill="#313131"/>
+                    </svg>
                     <span class="logo-text">Chimi UI Library</span>
                 </div>
                 <p class="footer-text">Modern, clean, and professional UI library for Roblox</p>
