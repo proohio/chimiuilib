@@ -4,8 +4,8 @@ local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
 local Players = game:GetService("Players")
 
-local function Tween(obj, props, t)
-	TweenService:Create(obj, TweenInfo.new(t or 0.15, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), props):Play()
+local function Tween(obj, props, t, style, dir)
+	TweenService:Create(obj, TweenInfo.new(t or 0.15, style or Enum.EasingStyle.Quint, dir or Enum.EasingDirection.Out), props):Play()
 end
 
 local function Corner(parent, r)
@@ -111,7 +111,13 @@ function ChimiUI.CreateLib(libName, themeChoice)
 		Parent = ScreenGui,
 	})
 	Corner(Main, 14)
-	Stroke(Main, Color3.fromRGB(255,255,255), 0.93)
+	local mainStroke = Stroke(Main, Color3.fromRGB(255,255,255), 1)
+	mainStroke.Transparency = 1
+	TweenService:Create(mainStroke, TweenInfo.new(0.55, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Transparency = 0.93}):Play()
+	local mainScale = Instance.new("UIScale")
+	mainScale.Scale = 0.93
+	mainScale.Parent = Main
+	TweenService:Create(mainScale, TweenInfo.new(0.52, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Scale = 1}):Play()
 
 	local TitleBar = Frame({
 		Color = T.Header,
@@ -119,6 +125,8 @@ function ChimiUI.CreateLib(libName, themeChoice)
 		ZIndex = 2,
 		Parent = Main,
 	})
+	Corner(TitleBar, 14)
+	TitleBar.ClipsDescendants = true
 
 	Frame({
 		Color = Color3.fromRGB(255,255,255),
@@ -127,6 +135,23 @@ function ChimiUI.CreateLib(libName, themeChoice)
 		Pos = UDim2.new(0,0,1,-1),
 		Parent = TitleBar,
 	})
+
+	local TitleSheen = Frame({
+		Color = Color3.fromRGB(255,255,255),
+		Alpha = 0,
+		Size = UDim2.new(1,0,0,22),
+		Pos = UDim2.new(0,0,0,0),
+		ZIndex = 1,
+		Parent = TitleBar,
+	})
+	Corner(TitleSheen, 14)
+	local titleGrad = Instance.new("UIGradient")
+	titleGrad.Rotation = 90
+	titleGrad.Transparency = NumberSequence.new({
+		NumberSequenceKeypoint.new(0, 0.91),
+		NumberSequenceKeypoint.new(1, 1),
+	})
+	titleGrad.Parent = TitleSheen
 
 	local TitleLbl = Instance.new("TextLabel")
 	TitleLbl.BackgroundTransparency = 1
@@ -153,48 +178,43 @@ function ChimiUI.CreateLib(libName, themeChoice)
 		Corner(Btn, 7)
 		Stroke(Btn, Color3.fromRGB(255,255,255), 0.94)
 
-		local L1 = Frame({
-			Color = Color3.fromRGB(136,136,136),
-			Alpha = 0.3,
-			Size = UDim2.new(0,10,0,1),
-			Pos = UDim2.new(0.5,-5,0.5,0),
-			ZIndex = 4,
-			Parent = Btn,
-		})
-		Corner(L1, 2)
+		local BtnScale = Instance.new("UIScale")
+		BtnScale.Scale = 1
+		BtnScale.Parent = Btn
+
+		local Icon = Instance.new("TextLabel")
+		Icon.BackgroundTransparency = 1
+		Icon.AnchorPoint = Vector2.new(0.5, 0.5)
+		Icon.Position = UDim2.new(0.5, 0, 0.5, 0)
+		Icon.Size = UDim2.new(1, 0, 1, 0)
+		Icon.Font = Enum.Font.GothamMedium
+		Icon.Text = isClose and "×" or "–"
+		Icon.TextSize = 15
+		Icon.TextColor3 = Color3.fromRGB(140,140,140)
+		Icon.ZIndex = 4
+		Icon.Parent = Btn
 
 		if isClose then
-			L1.Size = UDim2.new(0,9,0,1)
-			L1.Position = UDim2.new(0.5,-4.5,0.5,0)
-			L1.Rotation = 45
-			local L2 = Frame({
-				Color = Color3.fromRGB(136,136,136),
-				Alpha = 0.3,
-				Size = UDim2.new(0,9,0,1),
-				Pos = UDim2.new(0.5,-4.5,0.5,0),
-				ZIndex = 4,
-				Parent = Btn,
-			})
-			L2.Rotation = -45
-			Corner(L2, 2)
 			Btn.MouseEnter:Connect(function()
-				Tween(Btn, {BackgroundColor3=Color3.fromRGB(195,35,35)}, 0.12)
-				Tween(L1, {BackgroundTransparency=0}, 0.12)
-				Tween(L2, {BackgroundTransparency=0}, 0.12)
+				Tween(Btn, {BackgroundColor3=Color3.fromRGB(195,35,35)}, 0.14)
+				Tween(Icon, {TextColor3=Color3.fromRGB(255,255,255)}, 0.14)
+				Tween(BtnScale, {Scale=1.08}, 0.14, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
 			end)
 			Btn.MouseLeave:Connect(function()
-				Tween(Btn, {BackgroundColor3=Color3.fromRGB(28,28,28)}, 0.12)
-				Tween(L1, {BackgroundTransparency=0.3}, 0.12)
-				Tween(L2, {BackgroundTransparency=0.3}, 0.12)
+				Tween(Btn, {BackgroundColor3=Color3.fromRGB(28,28,28)}, 0.14)
+				Tween(Icon, {TextColor3=Color3.fromRGB(140,140,140)}, 0.14)
+				Tween(BtnScale, {Scale=1}, 0.14, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
 			end)
 		else
 			Btn.MouseEnter:Connect(function()
-				Tween(Btn, {BackgroundColor3=Color3.fromRGB(42,42,42)}, 0.12)
-				Tween(L1, {BackgroundTransparency=0}, 0.12)
+				Tween(Btn, {BackgroundColor3=Color3.fromRGB(42,42,42)}, 0.14)
+				Tween(Icon, {TextColor3=Color3.fromRGB(255,255,255)}, 0.14)
+				Tween(BtnScale, {Scale=1.08}, 0.14, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
 			end)
 			Btn.MouseLeave:Connect(function()
-				Tween(Btn, {BackgroundColor3=Color3.fromRGB(28,28,28)}, 0.12)
-				Tween(L1, {BackgroundTransparency=0.3}, 0.12)
+				Tween(Btn, {BackgroundColor3=Color3.fromRGB(28,28,28)}, 0.14)
+				Tween(Icon, {TextColor3=Color3.fromRGB(140,140,140)}, 0.14)
+				Tween(BtnScale, {Scale=1}, 0.14, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
 			end)
 		end
 		return Btn
@@ -233,12 +253,15 @@ function ChimiUI.CreateLib(libName, themeChoice)
 		Pos = UDim2.new(0,0,0,44),
 		Parent = Main,
 	})
+	Corner(Sidebar, 14)
+	Sidebar.ClipsDescendants = true
 
-	Frame({
+	local SidebarDivider = Frame({
 		Color = Color3.fromRGB(255,255,255),
 		Alpha = 0.95,
 		Size = UDim2.new(0,1,1,0),
 		Pos = UDim2.new(1,-1,0,0),
+		ZIndex = 2,
 		Parent = Sidebar,
 	})
 
@@ -266,11 +289,15 @@ function ChimiUI.CreateLib(libName, themeChoice)
 	end)
 
 	local ProfileArea = Frame({
-		Alpha = 1,
-		Size = UDim2.new(1,0,0,60),
+		Color = T.Sidebar,
+		Alpha = 0,
+		Size = UDim2.new(1,-1,0,60),
 		Pos = UDim2.new(0,0,1,-60),
 		Parent = Sidebar,
 	})
+	Corner(ProfileArea, 14)
+	ProfileArea.ZIndex = 1
+	ProfileArea.ClipsDescendants = true
 
 	Frame({
 		Color = Color3.fromRGB(255,255,255),
@@ -298,7 +325,7 @@ function ChimiUI.CreateLib(libName, themeChoice)
 	local DispNameLbl = Instance.new("TextLabel")
 	DispNameLbl.BackgroundTransparency = 1
 	DispNameLbl.Position = UDim2.new(0,52,0,12)
-	DispNameLbl.Size = UDim2.new(1,-68,0,16)
+	DispNameLbl.Size = UDim2.new(1,-82,0,16)
 	DispNameLbl.Font = Enum.Font.GothamBold
 	DispNameLbl.Text = "..."
 	DispNameLbl.TextColor3 = Color3.fromRGB(200,200,200)
@@ -310,7 +337,7 @@ function ChimiUI.CreateLib(libName, themeChoice)
 	local UserNameLbl = Instance.new("TextLabel")
 	UserNameLbl.BackgroundTransparency = 1
 	UserNameLbl.Position = UDim2.new(0,52,0,30)
-	UserNameLbl.Size = UDim2.new(1,-68,0,13)
+	UserNameLbl.Size = UDim2.new(1,-82,0,13)
 	UserNameLbl.Font = Enum.Font.Gotham
 	UserNameLbl.Text = "@..."
 	UserNameLbl.TextColor3 = Color3.fromRGB(68,68,68)
@@ -319,13 +346,27 @@ function ChimiUI.CreateLib(libName, themeChoice)
 	UserNameLbl.TextTruncate = Enum.TextTruncate.AtEnd
 	UserNameLbl.Parent = ProfileArea
 
-	Frame({
+	local StatusDot = Frame({
 		Color = Color3.fromRGB(34,197,94),
 		Size = UDim2.new(0,6,0,6),
-		Pos = UDim2.new(1,-14,0.5,-3),
+		Pos = UDim2.new(1,-22,0.5,-3),
 		Parent = ProfileArea,
 	})
-	Corner(ProfileArea:FindFirstChildWhichIsA("Frame", true), 100)
+	Corner(StatusDot, 100)
+	local statusGlow = Instance.new("UIStroke")
+	statusGlow.Color = Color3.fromRGB(34,197,94)
+	statusGlow.Thickness = 2
+	statusGlow.Transparency = 0.62
+	statusGlow.Parent = StatusDot
+	task.spawn(function()
+		while StatusDot.Parent do
+			TweenService:Create(statusGlow, TweenInfo.new(1.35, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {Transparency = 0.88}):Play()
+			task.wait(1.4)
+			if not StatusDot.Parent then break end
+			TweenService:Create(statusGlow, TweenInfo.new(1.35, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {Transparency = 0.52}):Play()
+			task.wait(1.4)
+		end
+	end)
 
 	local lp = Players.LocalPlayer
 	DispNameLbl.Text = lp.DisplayName
@@ -341,6 +382,8 @@ function ChimiUI.CreateLib(libName, themeChoice)
 		Pos = UDim2.new(0,155,0,44),
 		Parent = Main,
 	})
+	Corner(ContentArea, 14)
+	ContentArea.ClipsDescendants = true
 
 	local Pages = Instance.new("Folder")
 	Pages.Parent = ContentArea
@@ -382,16 +425,19 @@ function ChimiUI.CreateLib(libName, themeChoice)
 		TabBtn.Parent = TabScroll
 		Corner(TabBtn, 8)
 		local tabStroke = Stroke(TabBtn, Color3.fromRGB(255,255,255), isFirst and 0.92 or 1)
+		local tabScale = Instance.new("UIScale")
+		tabScale.Scale = 1
+		tabScale.Parent = TabBtn
 
 		local ActiveBar = Frame({
 			Color = Color3.fromRGB(255,255,255),
 			Alpha = isFirst and 0.5 or 1,
-			Size = UDim2.new(0,3,0,18),
-			Pos = UDim2.new(0,0,0.5,-9),
+			Size = UDim2.new(0,4,0,18),
+			Pos = UDim2.new(0,2,0.5,-9),
 			ZIndex = 3,
 			Parent = TabBtn,
 		})
-		Corner(ActiveBar, 4)
+		Corner(ActiveBar, 2)
 
 		local Page = Instance.new("ScrollingFrame")
 		Page.BackgroundTransparency = 1
@@ -421,7 +467,7 @@ function ChimiUI.CreateLib(libName, themeChoice)
 		end
 		PageLL:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(RefreshCanvas)
 
-		local entry = {btn=TabBtn, bar=ActiveBar, stroke=tabStroke, page=Page}
+		local entry = {btn=TabBtn, bar=ActiveBar, stroke=tabStroke, page=Page, tabScale=tabScale}
 		table.insert(allTabData, entry)
 
 		TabBtn.MouseButton1Click:Connect(function()
@@ -430,19 +476,30 @@ function ChimiUI.CreateLib(libName, themeChoice)
 				Tween(d.btn, {BackgroundTransparency=1, TextColor3=T.Sub}, 0.15)
 				Tween(d.bar, {BackgroundTransparency=1}, 0.15)
 				Tween(d.stroke, {Transparency=1}, 0.15)
+				Tween(d.tabScale, {Scale=1}, 0.15)
 			end
 			Page.Visible = true
-			Tween(TabBtn, {BackgroundTransparency=0.93, TextColor3=T.Text}, 0.15)
-			Tween(ActiveBar, {BackgroundTransparency=0.5}, 0.15)
-			Tween(tabStroke, {Transparency=0.92}, 0.15)
+			Tween(TabBtn, {BackgroundTransparency=0.93, TextColor3=T.Text}, 0.18)
+			Tween(ActiveBar, {BackgroundTransparency=0.5}, 0.18)
+			Tween(tabStroke, {Transparency=0.92}, 0.18)
+			Tween(tabScale, {Scale=1.03}, 0.2, Enum.EasingStyle.Back, Enum.EasingDirection.Out)
+			task.delay(0.14, function()
+				if TabBtn.Parent then Tween(tabScale, {Scale=1}, 0.22, Enum.EasingStyle.Quint, Enum.EasingDirection.Out) end
+			end)
 			RefreshCanvas()
 		end)
 
 		TabBtn.MouseEnter:Connect(function()
-			if not Page.Visible then Tween(TabBtn, {TextColor3=Color3.fromRGB(170,170,170)}, 0.1) end
+			if not Page.Visible then
+				Tween(TabBtn, {TextColor3=Color3.fromRGB(170,170,170)}, 0.12)
+				Tween(tabScale, {Scale=1.02}, 0.14, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+			end
 		end)
 		TabBtn.MouseLeave:Connect(function()
-			if not Page.Visible then Tween(TabBtn, {TextColor3=T.Sub}, 0.1) end
+			if not Page.Visible then
+				Tween(TabBtn, {TextColor3=T.Sub}, 0.12)
+				Tween(tabScale, {Scale=1}, 0.14, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+			end
 		end)
 
 		local Sections = {}
@@ -534,6 +591,9 @@ function ChimiUI.CreateLib(libName, themeChoice)
 				btnName = btnName or "Button"
 				callback = callback or function() end
 				local f, s = El(40)
+				local rowScale = Instance.new("UIScale")
+				rowScale.Scale = 1
+				rowScale.Parent = f
 
 				local Lbl = Instance.new("TextLabel")
 				Lbl.BackgroundTransparency = 1
@@ -567,10 +627,12 @@ function ChimiUI.CreateLib(libName, themeChoice)
 				HitBtn.MouseEnter:Connect(function()
 					Tween(s, {Transparency=0.87}, 0.1)
 					Tween(Lbl, {TextColor3=Color3.fromRGB(190,190,190)}, 0.1)
+					Tween(rowScale, {Scale=1.012}, 0.12, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
 				end)
 				HitBtn.MouseLeave:Connect(function()
 					Tween(s, {Transparency=0.94}, 0.1)
 					Tween(Lbl, {TextColor3=T.Sub}, 0.1)
+					Tween(rowScale, {Scale=1}, 0.12, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
 				end)
 
 				Resize()
@@ -584,6 +646,9 @@ function ChimiUI.CreateLib(libName, themeChoice)
 				callback = callback or function() end
 				local on = false
 				local f, s = El(44)
+				local rowScale = Instance.new("UIScale")
+				rowScale.Scale = 1
+				rowScale.Parent = f
 
 				local Lbl = Instance.new("TextLabel")
 				Lbl.BackgroundTransparency = 1
@@ -639,10 +704,12 @@ function ChimiUI.CreateLib(libName, themeChoice)
 				HitBtn.MouseEnter:Connect(function()
 					Tween(s, {Transparency=0.87}, 0.1)
 					Tween(Lbl, {TextColor3=Color3.fromRGB(190,190,190)}, 0.1)
+					Tween(rowScale, {Scale=1.012}, 0.12, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
 				end)
 				HitBtn.MouseLeave:Connect(function()
 					Tween(s, {Transparency=0.94}, 0.1)
 					Tween(Lbl, {TextColor3=T.Sub}, 0.1)
+					Tween(rowScale, {Scale=1}, 0.12, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
 				end)
 
 				Resize()
